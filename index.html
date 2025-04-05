@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Repair Status Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="shortcut icon" href="https://dilushanka.github.io/assets/img/favicons/apple-touch-icon.png" type="image/x-icon">
+    <style>
+        .search-container,.status-container{box-shadow:0 10px 30px rgba(0,0,0,.05)}:root{--primary:#6c5ce7;--secondary:#a29bfe;--dark:#2d3436;--light:#f5f6fa;--success:#00b894;--warning:#fdcb6e;--danger:#d63031;--info:#0984e3}*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}body{background-color:var(--light);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(108,92,231,.1) 0,rgba(255,255,255,.9) 90%)}.container{max-width:1200px;margin:0 auto;padding:2rem}.status-message,.status-progress{margin-top:2rem}header{text-align:center;margin-bottom:3rem;animation:1s fadeInDown}.logo{font-size:2.5rem;font-weight:700;color:var(--primary);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center}.logo i{margin-right:15px;animation:2s infinite pulse}.progress-title i,.search-title i{margin-right:10px}.tagline{color:var(--dark);opacity:.8;font-weight:300}.search-container{background:#fff;border-radius:15px;padding:2rem;margin-bottom:3rem;transform:translateY(0);transition:transform .3s,box-shadow .3s;animation:1s fadeInUp}.search-container:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.1)}.search-title{font-size:1.5rem;margin-bottom:1.5rem;color:var(--primary);display:flex;align-items:center}.btn,.input-group input{font-size:1rem;transition:.3s}.search-form{display:flex;gap:15px;flex-wrap:wrap}.input-group{flex:1;min-width:250px}.input-group label{display:block;margin-bottom:8px;font-weight:500;color:var(--dark)}.input-group input{width:100%;padding:12px 15px;border:2px solid #dfe6e9;border-radius:8px}.input-group input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(108,92,231,.2)}.btn{background:var(--primary);color:#fff;border:none;padding:12px 25px;border-radius:8px;cursor:pointer;font-weight:500;align-self:flex-end}.btn:hover{background:#5649c0;transform:translateY(-2px)}.btn:active{transform:translateY(0)}.status-container{background:#fff;border-radius:15px;padding:2rem;animation:1.5s fadeIn;display:none}.status-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #eee}.status-title{font-size:1.5rem;color:var(--primary)}.detail-title,.status-id,footer{font-size:.9rem}.status-id{background:#f0f0f0;padding:5px 10px;border-radius:20px}.status-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.detail-card{background:#f9f9f9;padding:1.5rem;border-radius:10px;transition:.3s}.detail-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,.05)}.detail-title{color:#7f8c8d;margin-bottom:5px}.detail-value{font-size:1.1rem;font-weight:500}.progress-title{font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center}.progress-title i{color:var(--primary)}.progress-steps{display:flex;justify-content:space-between;position:relative;margin-bottom:2rem}.progress-bar,.progress-steps::before{position:absolute;top:15px;left:0;height:4px}.progress-steps::before{content:'';right:0;background:#dfe6e9;z-index:1}.progress-bar{background:var(--primary);z-index:2;transition:width 1s}.step{display:flex;flex-direction:column;align-items:center;z-index:3}.step-icon{width:34px;height:34px;border-radius:50%;background:#fff;border:4px solid #dfe6e9;display:flex;align-items:center;justify-content:center;color:#b2bec3;font-size:.8rem;margin-bottom:5px;transition:.5s}.loading,.not-found{display:none;text-align:center}.step.active .step-icon{border-color:var(--primary);color:var(--primary);background:#fff}.step.completed .step-icon{border-color:var(--primary);background:var(--primary);color:#fff}.step-label{font-size:.8rem;color:#7f8c8d;text-align:center}.step.active .step-label{color:var(--dark);font-weight:500}.message-title,.step.completed .step-label{color:var(--primary)}.status-message{background:#f0f5f9;padding:1.5rem;border-radius:10px;border-left:4px solid var(--primary)}.message-title{font-weight:500;margin-bottom:.5rem}.not-found{padding:2rem}.not-found i{font-size:3rem;color:#d63031;margin-bottom:1rem}.not-found h3{margin-bottom:.5rem;color:var(--dark)}.not-found p,footer{color:#7f8c8d}footer{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid #eee}.loading{padding:1rem}.loading i{font-size:2rem;color:var(--primary);animation:1s linear infinite spin}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@media (max-width:768px){.container{padding:1rem}.logo{font-size:2rem}.search-form{flex-direction:column;gap:20px}.btn{width:100%}.progress-steps{flex-wrap:wrap;gap:20px}.step{flex:1 0 100px}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Dilushanka Mobile</span>
+            </div>
+            <p class="tagline">Track your device repair status in real-time</p>
+        </header>
+
+        <div class="search-container">
+            <h2 class="search-title">
+                <i class="fas fa-search"></i>
+                Check Repair Status
+            </h2>
+            <form class="search-form" id="statusForm">
+                <div class="input-group">
+                    <label for="jobNumber">Job Number</label>
+                    <input type="text" id="jobNumber" placeholder="Enter your job number" required>
+                </div>
+                <div class="input-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i> Check Status
+                </button>
+            </form>
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i>
+            <p>Searching for your repair job...</p>
+        </div>
+
+        <div class="not-found" id="notFound">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Repair Job Not Found</h3>
+            <p>We couldn't find a repair job matching your details. Please check your job number and name.</p>
+        </div>
+
+        <div class="status-container" id="statusContainer">
+            <div class="status-header">
+                <h2 class="status-title">Repair Status</h2>
+                <span class="status-id">Job #<span id="displayJobNumber">12345</span></span>
+            </div>
+
+            <div class="status-details">
+                <div class="detail-card">
+                    <div class="detail-title">Customer Name</div>
+                    <div class="detail-value" id="displayCustomerName">John Doe</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Device Model</div>
+                    <div class="detail-value" id="displayDeviceModel">iPhone 12 Pro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Fault Reported</div>
+                    <div class="detail-value" id="displayFault">Screen replacement</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Date Received</div>
+                    <div class="detail-value" id="displayDate">May 15, 2023</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Estimated Completion</div>
+                    <div class="detail-value" id="displayCompletion">May 18, 2023</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Repair Cost</div>
+                    <div class="detail-value" id="displayCost">$129.99</div>
+                </div>
+            </div>
+
+            <div class="status-progress">
+                <h3 class="progress-title">
+                    <i class="fas fa-tasks"></i>
+                    Repair Progress
+                </h3>
+                <div class="progress-steps">
+                    <div class="progress-bar" id="progressBar" style="width: 33%;"></div>
+                    <div class="step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-label">Received</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-label">Diagnosed</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="step-label">In Progress</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="step-label">Testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="far fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-message">
+                <h4 class="message-title">
+                    <i class="fas fa-info-circle"></i>
+                    Latest Update
+                </h4>
+                <p id="statusMessage">We've diagnosed your device and ordered the necessary parts. The screen should arrive tomorrow, and we'll begin the repair immediately.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Dilushanka Mobile. All rights reserved.</p>
+            <p>Contact us: dilushankamobile@gmail.com | (94) 78 927-4648</p>
+        </footer>
+    </div>
+
+    <script>
+const _0x27574a=_0x3345;(function(_0xdb3bc4,_0x46abf3){const _0x157b9f=_0x3345,_0x3c6f2e=_0xdb3bc4();while(!![]){try{const _0x5add2c=parseInt(_0x157b9f(0x167))/0x1*(parseInt(_0x157b9f(0x170))/0x2)+parseInt(_0x157b9f(0x174))/0x3*(parseInt(_0x157b9f(0x163))/0x4)+-parseInt(_0x157b9f(0x176))/0x5*(-parseInt(_0x157b9f(0x160))/0x6)+parseInt(_0x157b9f(0x15c))/0x7+parseInt(_0x157b9f(0x139))/0x8+-parseInt(_0x157b9f(0x15d))/0x9*(-parseInt(_0x157b9f(0x16e))/0xa)+-parseInt(_0x157b9f(0x14d))/0xb;if(_0x5add2c===_0x46abf3)break;else _0x3c6f2e['push'](_0x3c6f2e['shift']());}catch(_0x3c778d){_0x3c6f2e['push'](_0x3c6f2e['shift']());}}}(_0x115a,0xd98d7));const SHEET_ID=_0x27574a(0x158),API_KEY=_0x27574a(0x175),SHEET_NAME=_0x27574a(0x17f),statusForm=document['getElementById'](_0x27574a(0x15a)),loadingElement=document[_0x27574a(0x179)](_0x27574a(0x14e)),notFoundElement=document['getElementById'](_0x27574a(0x166)),statusContainer=document[_0x27574a(0x179)](_0x27574a(0x13b));statusForm[_0x27574a(0x13c)]('submit',async function(_0xa664a2){const _0x5a2352=_0x27574a;_0xa664a2[_0x5a2352(0x150)]();const _0x97ffb5=document['getElementById'](_0x5a2352(0x181))['value']['trim'](),_0x5c175c=document['getElementById'](_0x5a2352(0x16f))[_0x5a2352(0x17b)][_0x5a2352(0x142)]();loadingElement[_0x5a2352(0x183)][_0x5a2352(0x164)]=_0x5a2352(0x17e),notFoundElement[_0x5a2352(0x183)][_0x5a2352(0x164)]='none',statusContainer[_0x5a2352(0x183)]['display']='none';try{const _0x4f6cb6=await fetchJobData(_0x97ffb5,_0x5c175c);_0x4f6cb6?(displayJobStatus(_0x4f6cb6),statusContainer[_0x5a2352(0x183)]['display']=_0x5a2352(0x17e)):notFoundElement[_0x5a2352(0x183)][_0x5a2352(0x164)]=_0x5a2352(0x17e);}catch(_0x33bb4b){console[_0x5a2352(0x16b)](_0x5a2352(0x180),_0x33bb4b),notFoundElement[_0x5a2352(0x183)]['display']=_0x5a2352(0x17e);}finally{loadingElement[_0x5a2352(0x183)][_0x5a2352(0x164)]=_0x5a2352(0x13e);}});async function fetchJobData(_0x1f2d45,_0x4cf4db){const _0x3a0ff4=_0x27574a,_0x3efba5='https://sheets.googleapis.com/v4/spreadsheets/'+SHEET_ID+_0x3a0ff4(0x14f)+SHEET_NAME+'?key='+API_KEY,_0x530f49=await fetch(_0x3efba5),_0xfb1d41=await _0x530f49['json']();if(!_0xfb1d41[_0x3a0ff4(0x157)]||_0xfb1d41['values'][_0x3a0ff4(0x14a)]===0x0)return null;const _0x3d3981=_0xfb1d41['values'][0x0][_0x3a0ff4(0x13f)](_0x1cd0ef=>_0x1cd0ef[_0x3a0ff4(0x142)]());for(let _0x417c30=0x1;_0x417c30<_0xfb1d41[_0x3a0ff4(0x157)][_0x3a0ff4(0x14a)];_0x417c30++){const _0x3b1f3d=_0xfb1d41[_0x3a0ff4(0x157)][_0x417c30],_0x5e26c3=_0x3b1f3d[0x0]?_0x3b1f3d[0x0][_0x3a0ff4(0x143)]()[_0x3a0ff4(0x142)]():'',_0x2034da=_0x3b1f3d[0x1]?_0x3b1f3d[0x1]['toString']()[_0x3a0ff4(0x142)]()['toLowerCase']():'';if(_0x5e26c3===_0x1f2d45&&(_0x4cf4db===''||_0x2034da['includes'](_0x4cf4db[_0x3a0ff4(0x171)]()))){const _0x641d9b={};return _0x3d3981['forEach']((_0x951d9b,_0xb81259)=>{_0x641d9b[_0x951d9b]=_0x3b1f3d[_0xb81259]||'';}),_0x641d9b;}}return null;}function displayJobStatus(_0x149794){const _0x1e8425=_0x27574a;document['getElementById'](_0x1e8425(0x13d))[_0x1e8425(0x16c)]=_0x149794['Job\x20Number']||_0x1e8425(0x168),document[_0x1e8425(0x179)](_0x1e8425(0x14c))[_0x1e8425(0x16c)]=_0x149794['Customer\x20Name']||_0x1e8425(0x17d),document[_0x1e8425(0x179)](_0x1e8425(0x177))[_0x1e8425(0x16c)]=_0x149794[_0x1e8425(0x169)]||_0x1e8425(0x168),document[_0x1e8425(0x179)](_0x1e8425(0x149))[_0x1e8425(0x16c)]=_0x149794[_0x1e8425(0x144)]||'N/A',document['getElementById'](_0x1e8425(0x172))[_0x1e8425(0x16c)]=formatDate(_0x149794[_0x1e8425(0x14b)])||'N/A';const _0x3c966b=_0x149794[_0x1e8425(0x17a)]==='TBD'?_0x1e8425(0x15b):formatDate(_0x149794['Estimated\x20Completion']);document[_0x1e8425(0x179)](_0x1e8425(0x141))['textContent']=_0x3c966b;const _0x36f657=_0x149794['Repair\x20Cost']===_0x1e8425(0x173)?_0x1e8425(0x15b):_0x149794[_0x1e8425(0x162)];document[_0x1e8425(0x179)](_0x1e8425(0x156))[_0x1e8425(0x16c)]=_0x36f657,document[_0x1e8425(0x179)]('statusMessage')[_0x1e8425(0x16c)]=_0x149794[_0x1e8425(0x15e)]||'No\x20updates\x20available.',updateProgress(_0x149794['Status']||'');}function updateProgress(_0x3d6d7b){const _0x5ca001=_0x27574a;let _0x5abffb=0x0;const _0x3c96e7=document[_0x5ca001(0x155)](_0x5ca001(0x147));_0x3c96e7[_0x5ca001(0x17c)](_0x46c066=>{const _0x5551b8=_0x5ca001;_0x46c066['classList'][_0x5551b8(0x161)]('completed',_0x5551b8(0x145));}),_0x3d6d7b=(_0x3d6d7b||'')[_0x5ca001(0x171)]();if(_0x3d6d7b[_0x5ca001(0x165)](_0x5ca001(0x159)))_0x5abffb=0x14,_0x3c96e7[0x0][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x1][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x145));else{if(_0x3d6d7b[_0x5ca001(0x165)](_0x5ca001(0x152)))_0x5abffb=0x28,_0x3c96e7[0x0][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x1][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x2][_0x5ca001(0x182)][_0x5ca001(0x154)]('active');else{if(_0x3d6d7b[_0x5ca001(0x165)](_0x5ca001(0x148))||_0x3d6d7b['includes'](_0x5ca001(0x15f)))_0x5abffb=0x3c,_0x3c96e7[0x0][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x1]['classList'][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x2][_0x5ca001(0x182)][_0x5ca001(0x154)]('completed'),_0x3c96e7[0x3][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x145));else{if(_0x3d6d7b[_0x5ca001(0x165)](_0x5ca001(0x151)))_0x5abffb=0x50,_0x3c96e7[0x0][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x1]['classList']['add'](_0x5ca001(0x178)),_0x3c96e7[0x2][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x3][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x4][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x145));else _0x3d6d7b[_0x5ca001(0x165)](_0x5ca001(0x140))||_0x3d6d7b['includes'](_0x5ca001(0x153))?(_0x5abffb=0x64,_0x3c96e7[_0x5ca001(0x17c)](_0x3bea75=>_0x3bea75[_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)))):(_0x5abffb=0x14,_0x3c96e7[0x0][_0x5ca001(0x182)][_0x5ca001(0x154)](_0x5ca001(0x178)),_0x3c96e7[0x1][_0x5ca001(0x182)]['add'](_0x5ca001(0x145)));}}}const _0x4938eb=document[_0x5ca001(0x179)](_0x5ca001(0x16a));_0x4938eb[_0x5ca001(0x183)][_0x5ca001(0x146)]='0%',setTimeout(()=>{const _0x4b1743=_0x5ca001;_0x4938eb[_0x4b1743(0x183)][_0x4b1743(0x146)]=_0x5abffb+'%';},0x64);}function _0x3345(_0x4f9e85,_0x34f0b5){const _0x115a7d=_0x115a();return _0x3345=function(_0x3345c3,_0x5bcf18){_0x3345c3=_0x3345c3-0x139;let _0x5f0074=_0x115a7d[_0x3345c3];return _0x5f0074;},_0x3345(_0x4f9e85,_0x34f0b5);}function formatDate(_0x3ff968){const _0x1272bc=_0x27574a;if(!_0x3ff968||_0x3ff968[_0x1272bc(0x142)]()==='')return'';try{const _0x3b5809=new Date(_0x3ff968);return isNaN(_0x3b5809[_0x1272bc(0x13a)]())?_0x3ff968:_0x3b5809['toLocaleDateString']();}catch{return _0x3ff968;}}function _0x115a(){const _0x143030=['querySelectorAll','displayCost','values','1mNmwfQ27L1T18NVUujZ-t6M9VQnDnlIdcRXgtxDj2c4','received','statusForm','To\x20be\x20determined','2038274bjLeuT','9XnhQaz','Status\x20Update\x20Message','repairing','12102RTksHj','remove','Repair\x20Cost','365292RHvKaG','display','includes','notFound','7459QqISxg','N/A','Device\x20Model','progressBar','error','textContent','DOMContentLoaded','11436810hnCZnx','customerName','242NQEewN','toLowerCase','displayDate','Pending','15ahIIpj','AIzaSyAW4m-BcEz5ODvkA--BGEyj1B4KwbttSn4','130ptyXCN','displayDeviceModel','completed','getElementById','Estimated\x20Completion','value','forEach','Not\x20provided','block','Sheet1','Error:','jobNumber','classList','style','13538112XlsIBt','getTime','statusContainer','addEventListener','displayJobNumber','none','map','complete','displayCompletion','trim','toString','Fault\x20Description','active','width','.step','progress','displayFault','length','Date\x20Received','displayCustomerName','40123908hEOzic','loading','/values/','preventDefault','testing','diagnosed','ready','add'];_0x115a=function(){return _0x143030;};return _0x115a();}document[_0x27574a(0x13c)](_0x27574a(0x16d),()=>{const _0x5bcbed=_0x27574a;updateProgress(_0x5bcbed(0x159));});
+    </script>
+</body>
+</html>
