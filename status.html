@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Repair Job Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #4361ee;
+    }
+    .form-card {
+      background: white;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #4361ee;
+      color: white;
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    #authModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mobile Repair Job Tracker</h1>
+
+  <div class="form-card">
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="newJobNumber">Job Number</label>
+        <input type="text" id="newJobNumber" required/>
+      </div>
+      <div class="form-group">
+        <label for="newCustomerName">Customer Name</label>
+        <input type="text" id="newCustomerName" required/>
+      </div>
+      <div class="form-group">
+        <label for="newDeviceModel">Device Model</label>
+        <input type="text" id="newDeviceModel" required/>
+      </div>
+      <div class="form-group">
+        <label for="newFault">Fault Description</label>
+        <input type="text" id="newFault" required/>
+      </div>
+      <div class="form-group">
+        <label for="newDateReceived">Date Received</label>
+        <input type="date" id="newDateReceived" required/>
+      </div>
+      <div class="form-group">
+        <label for="newEstimatedCompletion">Estimated Completion</label>
+        <input type="date" id="newEstimatedCompletion" required/>
+      </div>
+      <div class="form-group">
+        <label for="newRepairCost">Repair Cost</label>
+        <input type="text" id="newRepairCost" required/>
+      </div>
+      <div class="form-group">
+        <label for="newStatus">Repair Status</label>
+        <input type="text" id="newStatus" required/>
+      </div>
+      <div class="form-group">
+        <label for="newStatusMessage">Status Update Message</label>
+        <input type="text" id="newStatusMessage" required/>
+      </div>
+
+      <button type="submit" class="btn-primary">Add Repair Job</button>
+      <div class="btn-row">
+        <button type="button" id="saveToSheets" class="btn-primary"><i class="fas fa-cloud-upload-alt"></i> Save to Google Sheets</button>
+        <button type="button" id="loadFromSheets" class="btn-primary"><i class="fas fa-cloud-download-alt"></i> Load from Google Sheets</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Google Auth Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>This app needs permission to access your Google Sheets.</p>
+      <button id="authButton" class="btn-primary">Authenticate with Google</button>
+    </div>
+  </div>
+
+  <!-- Google API Loader -->
+  <script src="https://accounts.google.com/gsi/client"></script>
+  <script src="scriptst.js"></script>
+</body>
+</html>
