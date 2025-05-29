@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function generateValuesForSheets() {
         const jobs = JSON.parse(localStorage.getItem('repairJobs'));
+        if (!jobs || jobs.length === 0) return [];
+
         const values = jobs.map(job => [
             job['Job Number'],
             job['Customer Name'],
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         try {
-            // Clear existing data
+            // Clear existing data first
             await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.spreadsheetId}/values/${CONFIG.sheetName}!A1:Z1000?valueInputOption=RAW`, {
                 method: 'PUT',
                 headers: {
@@ -64,8 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             });
 
-            // Save new data
             const values = generateValuesForSheets();
+            if (values.length === 0) {
+                showToast('No data to save');
+                return;
+            }
+
             const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.spreadsheetId}/values/${CONFIG.sheetName}!A1:append?valueInputOption=RAW`, {
                 method: 'POST',
                 headers: {
@@ -82,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) throw new Error(await response.text());
             showToast('Saved to Google Sheets!');
         } catch (err) {
-            console.error(err);
+            console.error('Sheets API Error:', err);
             showToast('Failed to save to Sheets');
         }
     }
@@ -103,65 +109,111 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) throw new Error(await response.text());
 
             const data = await response.json();
+            if (!data.values || data.values.length === 0) {
+                showToast('No data found in Sheets');
+                return;
+            }
+
             const jobs = data.values.map(row => ({
-                'Job Number': row[0],
-                'Customer Name': row[1],
-                'Device Model': row[2],
-                'Fault Description': row[3],
-                'Date Received': row[4],
-                'Estimated Completion': row[5],
-                'Repair Cost': row[6],
-                'Status': row[7],
-                'Status Update Message': row[8]
+                'Job Number': row[0] || '',
+                'Customer Name': row[1] || '',
+                'Device Model': row[2] || '',
+                'Fault Description': row[3] || '',
+                'Date Received': row[4] || new Date().toISOString(),
+                'Estimated Completion': row[5] || '',
+                'Repair Cost': row[6] || '',
+                'Status': row[7] || '',
+                'Status Update Message': row[8] || ''
             }));
 
             localStorage.setItem('repairJobs', JSON.stringify(jobs));
             showToast('Loaded from Google Sheets!');
         } catch (err) {
-            console.error(err);
+            console.error('Sheets API Error:', err);
             showToast('Failed to load from Sheets');
         }
     }
 
     function handleAuthClick() {
+        if (typeof google === 'undefined' || !google.accounts) {
+            showToast('Google API not loaded');
+            return;
+        }
+
         const client = google.accounts.oauth2.initTokenClient({
             client_id: CONFIG.clientId,
             scope: 'https://www.googleapis.com/auth/spreadsheets',
             prompt: 'consent',
             callback: (tokenResponse) => {
-                if (tokenResponse.access_token) {
+                if (tokenResponse && tokenResponse.access_token) {
                     accessToken = tokenResponse.access_token;
                     authModal.style.display = 'none';
                     showToast('Authenticated');
+                } else {
+                    showToast('Authentication failed');
                 }
             }
         });
         client.requestAccessToken();
     }
 
+    function generateUniqueJobNumber() {
+        const timestamp = Date.now();
+        const randomPart = Math.floor(100 + Math.random() * 900);
+        return `JOB${timestamp}${randomPart}`;
+    }
+
     function handleRegisterSubmit(e) {
         e.preventDefault();
+
+        // Get form elements
+        const customerNameEl = document.getElementById('newCustomerName');
+        const deviceModelEl = document.getElementById('newDeviceModel');
+        const faultDescEl = document.getElementById('newFault');
+        const estCompletionEl = document.getElementById('newEstimatedCompletion');
+        const repairCostEl = document.getElementById('newRepairCost');
+
+        // Validate elements exist
+        if (!customerNameEl || !deviceModelEl || !faultDescEl || !estCompletionEl || !repairCostEl) {
+            showToast('Form elements missing!');
+            return;
+        }
+
+        // Validate required fields
+        if (!customerNameEl.value.trim() || !deviceModelEl.value.trim() || !faultDescEl.value.trim() || !estCompletionEl.value || !repairCostEl.value.trim()) {
+            showToast('Please fill all required fields');
+            return;
+        }
+
+        let jobs = JSON.parse(localStorage.getItem('repairJobs')) || [];
+
+        // Generate unique job number
+        let newJobNumber;
+        do {
+            newJobNumber = generateUniqueJobNumber();
+        } while (jobs.some(job => job['Job Number'] === newJobNumber));
+
+        // Create new job object
         const job = {
-            'Job Number': document.getElementById('newJobNumber').value.trim(),
-            'Customer Name': document.getElementById('newCustomerName').value.trim(),
-            'Device Model': document.getElementById('newDeviceModel').value.trim(),
-            'Fault Description': document.getElementById('newFault').value.trim(),
-            'Date Received': document.getElementById('newDateReceived').value,
-            'Estimated Completion': document.getElementById('newEstimatedCompletion').value,
-            'Repair Cost': document.getElementById('newRepairCost').value.trim(),
-            'Status': document.getElementById('newStatus').value.trim(),
-            'Status Update Message': document.getElementById('newStatusMessage').value.trim()
+            'Job Number': newJobNumber,
+            'Customer Name': customerNameEl.value.trim(),
+            'Device Model': deviceModelEl.value.trim(),
+            'Fault Description': faultDescEl.value.trim(),
+            'Date Received': new Date().toISOString(),
+            'Estimated Completion': estCompletionEl.value,
+            'Repair Cost': repairCostEl.value.trim(),
+            'Status': 'Pending',
+            'Status Update Message': 'Job registered'
         };
 
-        let jobs = JSON.parse(localStorage.getItem('repairJobs'));
         jobs.push(job);
         localStorage.setItem('repairJobs', JSON.stringify(jobs));
 
-        showToast('Repair job added');
+        showToast(`Repair job added. Job Number: ${newJobNumber}`);
         registerForm.reset();
     }
 
-    // Events
+    // Event Listeners
     registerForm.addEventListener('submit', handleRegisterSubmit);
     saveToSheetsBtn.addEventListener('click', saveToGoogleSheets);
     loadFromSheetsBtn.addEventListener('click', loadFromGoogleSheets);
