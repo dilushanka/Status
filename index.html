@@ -141,7 +141,205 @@
     </div>
 
     <script>
-        const _0x3a5e34=_0x27d7;(function(_0x4d0d28,_0x1723fd){const _0x55d40a=_0x27d7,_0x2d6bfc=_0x4d0d28();while(!![]){try{const _0x2fc9c2=parseInt(_0x55d40a(0x1ff))/0x1*(-parseInt(_0x55d40a(0x1e7))/0x2)+parseInt(_0x55d40a(0x222))/0x3*(parseInt(_0x55d40a(0x200))/0x4)+-parseInt(_0x55d40a(0x215))/0x5*(parseInt(_0x55d40a(0x20d))/0x6)+-parseInt(_0x55d40a(0x1e6))/0x7+parseInt(_0x55d40a(0x1dd))/0x8*(-parseInt(_0x55d40a(0x212))/0x9)+parseInt(_0x55d40a(0x203))/0xa+parseInt(_0x55d40a(0x20b))/0xb;if(_0x2fc9c2===_0x1723fd)break;else _0x2d6bfc['push'](_0x2d6bfc['shift']());}catch(_0x376cf4){_0x2d6bfc['push'](_0x2d6bfc['shift']());}}}(_0x42f1,0x55781));const SHEET_ID='1okznadJPiXLygebie8jLStKPF6WUoDsrqqDAFogLS7o',API_KEY=_0x3a5e34(0x1db),SHEET_NAME='WarrantyRecords',statusForm=document['getElementById']('statusForm'),loadingElement=document[_0x3a5e34(0x1f9)]('loading'),notFoundElement=document[_0x3a5e34(0x1f9)](_0x3a5e34(0x205)),statusContainer=document[_0x3a5e34(0x1f9)](_0x3a5e34(0x207)),jobNumberInput=document['getElementById'](_0x3a5e34(0x229)),customerNameInput=document['getElementById'](_0x3a5e34(0x219));document[_0x3a5e34(0x21f)](_0x3a5e34(0x1fc),async function(){const _0x39c1ed=_0x3a5e34;updateProgress(_0x39c1ed(0x1ea));const _0x34d326=new URLSearchParams(window[_0x39c1ed(0x209)][_0x39c1ed(0x226)]),_0x45a73b=_0x34d326[_0x39c1ed(0x1df)](_0x39c1ed(0x1fe));_0x45a73b&&(jobNumberInput[_0x39c1ed(0x21d)]=_0x45a73b,await handleFormSubmission(_0x45a73b,''));}),statusForm['addEventListener'](_0x3a5e34(0x1dc),async function(_0x13e512){const _0x505b0a=_0x3a5e34;_0x13e512[_0x505b0a(0x225)]();const _0x436b2d=jobNumberInput[_0x505b0a(0x21d)]['trim'](),_0x40f966=customerNameInput['value'][_0x505b0a(0x1e5)]();await handleFormSubmission(_0x436b2d,_0x40f966);});async function handleFormSubmission(_0x1cb16f,_0x59c5c2){const _0xa38987=_0x3a5e34;if(!_0x1cb16f)return;loadingElement[_0xa38987(0x20f)]['display']=_0xa38987(0x224),notFoundElement[_0xa38987(0x20f)][_0xa38987(0x227)]=_0xa38987(0x1f0),statusContainer[_0xa38987(0x20f)][_0xa38987(0x227)]=_0xa38987(0x1f0);try{const _0x17b464=await fetchJobData(_0x1cb16f,_0x59c5c2);if(_0x17b464){displayJobStatus(_0x17b464),statusContainer[_0xa38987(0x20f)]['display']=_0xa38987(0x224);const _0x54c549=window['location'][_0xa38987(0x1ed)]+_0xa38987(0x20c)+_0x1cb16f;window[_0xa38987(0x1fb)][_0xa38987(0x221)]({},'',_0x54c549);}else notFoundElement['style']['display']=_0xa38987(0x224);}catch(_0x2a95b7){console['error'](_0xa38987(0x1e1),_0x2a95b7),notFoundElement['style'][_0xa38987(0x227)]=_0xa38987(0x224);}finally{loadingElement[_0xa38987(0x20f)]['display']=_0xa38987(0x1f0);}}async function fetchJobData(_0x127deb,_0xbc22b4){const _0x9742a6=_0x3a5e34,_0x3a34c='https://sheets.googleapis.com/v4/spreadsheets/'+SHEET_ID+_0x9742a6(0x1f5)+SHEET_NAME+_0x9742a6(0x223)+API_KEY,_0x5b958d=await fetch(_0x3a34c);if(!_0x5b958d['ok'])throw new Error('API\x20request\x20failed\x20with\x20status\x20'+_0x5b958d[_0x9742a6(0x1e0)]);const _0x32ee39=await _0x5b958d['json']();if(!_0x32ee39['values']||_0x32ee39['values'][_0x9742a6(0x218)]===0x0)return null;const _0x30793a=_0x32ee39['values'][0x0][_0x9742a6(0x1ec)](_0x3cee8e=>_0x3cee8e['trim']());for(let _0x1b494e=0x1;_0x1b494e<_0x32ee39['values'][_0x9742a6(0x218)];_0x1b494e++){const _0x405ea3=_0x32ee39[_0x9742a6(0x1eb)][_0x1b494e],_0x4035e7=_0x405ea3[0x0]?_0x405ea3[0x0][_0x9742a6(0x213)]()[_0x9742a6(0x1e5)]():'',_0x27a905=_0x405ea3[0x1]?_0x405ea3[0x1][_0x9742a6(0x213)]()[_0x9742a6(0x1e5)]()[_0x9742a6(0x21a)]():'';if(_0x4035e7===_0x127deb&&(_0xbc22b4===''||_0x27a905['includes'](_0xbc22b4[_0x9742a6(0x21a)]()))){const _0x3def08={};return _0x30793a[_0x9742a6(0x20a)]((_0x1f16b5,_0xa0109)=>{_0x3def08[_0x1f16b5]=_0x405ea3[_0xa0109]||'';}),_0x3def08;}}return null;}function displayJobStatus(_0x16707a){const _0x4417c4=_0x3a5e34;document[_0x4417c4(0x1f9)](_0x4417c4(0x216))[_0x4417c4(0x206)]=_0x16707a[_0x4417c4(0x21c)]||_0x4417c4(0x201),document[_0x4417c4(0x1f9)](_0x4417c4(0x1f7))[_0x4417c4(0x206)]=_0x16707a[_0x4417c4(0x1de)]||'Not\x20provided',document[_0x4417c4(0x1f9)]('displayDeviceModel')[_0x4417c4(0x206)]=_0x16707a[_0x4417c4(0x1e3)]||_0x4417c4(0x201),document[_0x4417c4(0x1f9)](_0x4417c4(0x1fa))['textContent']=_0x16707a[_0x4417c4(0x1f2)]||_0x4417c4(0x201),document[_0x4417c4(0x1f9)]('displayDate')['textContent']=formatDate(_0x16707a[_0x4417c4(0x1ee)])||_0x4417c4(0x201);const _0x5899af=_0x16707a[_0x4417c4(0x1e9)]==='TBD'?'To\x20be\x20determined':formatDate(_0x16707a[_0x4417c4(0x1e9)]);document['getElementById'](_0x4417c4(0x208))[_0x4417c4(0x206)]=_0x5899af;const _0x40669a=_0x16707a[_0x4417c4(0x20e)]==='Pending'?_0x4417c4(0x210):_0x16707a['Repair\x20Cost'];document[_0x4417c4(0x1f9)](_0x4417c4(0x21b))[_0x4417c4(0x206)]=_0x40669a,document['getElementById']('statusMessage')[_0x4417c4(0x206)]=_0x16707a[_0x4417c4(0x21e)]||_0x4417c4(0x1f6),updateProgress(_0x16707a['Status']||'');}function updateProgress(_0x3eca86){const _0x52c7e1=_0x3a5e34;let _0x28e043=0x0;const _0x921fff=document[_0x52c7e1(0x1ef)]('.step');_0x921fff[_0x52c7e1(0x20a)](_0x32bc81=>{const _0x584a55=_0x52c7e1;_0x32bc81['classList'][_0x584a55(0x204)](_0x584a55(0x228),'active');}),_0x3eca86=(_0x3eca86||'')[_0x52c7e1(0x21a)]();if(_0x3eca86[_0x52c7e1(0x202)](_0x52c7e1(0x1ea)))_0x28e043=0x14,_0x921fff[0x0]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x1][_0x52c7e1(0x1e2)]['add']('active');else{if(_0x3eca86[_0x52c7e1(0x202)](_0x52c7e1(0x1f8)))_0x28e043=0x28,_0x921fff[0x0][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)]('completed'),_0x921fff[0x1]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x2]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x217));else{if(_0x3eca86[_0x52c7e1(0x202)](_0x52c7e1(0x211))||_0x3eca86['includes'](_0x52c7e1(0x220)))_0x28e043=0x3c,_0x921fff[0x0][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x1][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)]('completed'),_0x921fff[0x2][_0x52c7e1(0x1e2)]['add'](_0x52c7e1(0x228)),_0x921fff[0x3]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x217));else{if(_0x3eca86['includes'](_0x52c7e1(0x1f4)))_0x28e043=0x50,_0x921fff[0x0][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x1]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x2][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)]('completed'),_0x921fff[0x3]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x4][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)](_0x52c7e1(0x217));else _0x3eca86['includes'](_0x52c7e1(0x214))||_0x3eca86[_0x52c7e1(0x202)](_0x52c7e1(0x1e4))?(_0x28e043=0x64,_0x921fff[_0x52c7e1(0x20a)](_0x2f74b6=>_0x2f74b6[_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)]('completed'))):(_0x28e043=0x14,_0x921fff[0x0]['classList'][_0x52c7e1(0x1f3)](_0x52c7e1(0x228)),_0x921fff[0x1][_0x52c7e1(0x1e2)][_0x52c7e1(0x1f3)](_0x52c7e1(0x217)));}}}const _0x6607cb=document[_0x52c7e1(0x1f9)](_0x52c7e1(0x1f1));_0x6607cb[_0x52c7e1(0x20f)][_0x52c7e1(0x1fd)]='0%',setTimeout(()=>{const _0x29d05a=_0x52c7e1;_0x6607cb[_0x29d05a(0x20f)][_0x29d05a(0x1fd)]=_0x28e043+'%';},0x64);}function _0x27d7(_0x4c73c6,_0x98f69d){const _0x42f1c3=_0x42f1();return _0x27d7=function(_0x27d702,_0xab3ffe){_0x27d702=_0x27d702-0x1db;let _0x4f89d7=_0x42f1c3[_0x27d702];return _0x4f89d7;},_0x27d7(_0x4c73c6,_0x98f69d);}function formatDate(_0x1f24d5){const _0x2b1ade=_0x3a5e34;if(!_0x1f24d5||_0x1f24d5['trim']()==='')return'';try{const _0x2c4549=new Date(_0x1f24d5);return isNaN(_0x2c4549['getTime']())?_0x1f24d5:_0x2c4549[_0x2b1ade(0x1e8)]();}catch{return _0x1f24d5;}}function _0x42f1(){const _0x246556=['To\x20be\x20determined','progress','2933127SbCthL','toString','complete','3149330VHGpxh','displayJobNumber','active','length','customerName','toLowerCase','displayCost','Job\x20Number','value','Status\x20Update\x20Message','addEventListener','repairing','pushState','142731NMPYMj','?key=','block','preventDefault','search','display','completed','jobNumber','AIzaSyBtIb_OEZXjsex6BlPZsk35ISO3CVKV2io','submit','8aQweRI','Customer\x20Name','get','status','Error:','classList','Device\x20Model','ready','trim','434847mkiUoD','2ZubFAl','toLocaleDateString','Estimated\x20Completion','received','values','map','pathname','Date\x20Received','querySelectorAll','none','progressBar','Fault\x20Description','add','testing','/values/','No\x20updates\x20available.','displayCustomerName','diagnosed','getElementById','displayFault','history','DOMContentLoaded','width','jobid','137206ACefdI','12njjulV','N/A','includes','3167540RMesVW','remove','notFound','textContent','statusContainer','displayCompletion','location','forEach','11502612rAwHqJ','?jobid=','6WidFDm','Repair\x20Cost','style'];_0x42f1=function(){return _0x246556;};return _0x42f1();}
+        // Google Sheets configuration
+        const SHEET_ID = '1okznadJPiXLygebie8jLStKPF6WUoDsrqqDAFogLS7o';
+        const API_KEY = 'AIzaSyBtIb_OEZXjsex6BlPZsk35ISO3CVKV2io';
+        const SHEET_NAME = 'status';
+
+        // DOM elements
+        const statusForm = document.getElementById('statusForm');
+        const loadingElement = document.getElementById('loading');
+        const notFoundElement = document.getElementById('notFound');
+        const statusContainer = document.getElementById('statusContainer');
+        const jobNumberInput = document.getElementById('jobNumber');
+        const customerNameInput = document.getElementById('customerName');
+
+        // Check for URL parameter when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            updateProgress('received'); // Initialize progress bar
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobIdFromUrl = urlParams.get('jobid');
+            
+            if (jobIdFromUrl) {
+                // Auto-fill and search if job ID is in URL
+                jobNumberInput.value = jobIdFromUrl;
+                await handleFormSubmission(jobIdFromUrl, '');
+            }
+        });
+
+        // Form submission handler
+        statusForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const jobNumber = jobNumberInput.value.trim();
+            const customerName = customerNameInput.value.trim();
+            await handleFormSubmission(jobNumber, customerName);
+        });
+
+        // Unified form handling function
+        async function handleFormSubmission(jobNumber, customerName) {
+            if (!jobNumber) return;
+            
+            // Show loading state
+            loadingElement.style.display = 'block';
+            notFoundElement.style.display = 'none';
+            statusContainer.style.display = 'none';
+            
+            try {
+                // Fetch data from Google Sheets
+                const jobData = await fetchJobData(jobNumber, customerName);
+                
+                if (jobData) {
+                    displayJobStatus(jobData);
+                    statusContainer.style.display = 'block';
+                    
+                    // Update URL without reloading (for sharing)
+                    const newUrl = window.location.pathname + '?jobid=' + jobNumber;
+                    window.history.pushState({}, '', newUrl);
+                } else {
+                    notFoundElement.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                notFoundElement.style.display = 'block';
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        // Fetch job data from Google Sheets
+        async function fetchJobData(jobNumber, customerName) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (!data.values || data.values.length === 0) {
+                return null;
+            }
+            
+            // Get headers (first row)
+            const headers = data.values[0].map(header => header.trim());
+            
+            // Find the matching job
+            for (let i = 1; i < data.values.length; i++) {
+                const row = data.values[i];
+                const rowJobNumber = row[0] ? row[0].toString().trim() : '';
+                const rowCustomerName = row[1] ? row[1].toString().trim().toLowerCase() : '';
+                
+                if (rowJobNumber === jobNumber && 
+                    (customerName === '' || rowCustomerName.includes(customerName.toLowerCase()))) {
+                    // Create job data object with proper headers
+                    const jobData = {};
+                    headers.forEach((header, index) => {
+                        jobData[header] = row[index] || '';
+                    });
+                    return jobData;
+                }
+            }
+            
+            return null;
+        }
+
+        // Display job status in the UI
+        function displayJobStatus(jobData) {
+            // Update all display fields
+            document.getElementById('displayJobNumber').textContent = jobData['Job Number'] || 'N/A';
+            document.getElementById('displayCustomerName').textContent = jobData['Customer Name'] || 'Not provided';
+            document.getElementById('displayDeviceModel').textContent = jobData['Device Model'] || 'N/A';
+            document.getElementById('displayFault').textContent = jobData['Fault Description'] || 'N/A';
+            document.getElementById('displayDate').textContent = formatDate(jobData['Date Received']) || 'N/A';
+            
+            // Handle special cases
+            const completionDate = jobData['Estimated Completion'] === 'TBD' 
+                ? 'To be determined' 
+                : formatDate(jobData['Estimated Completion']);
+            document.getElementById('displayCompletion').textContent = completionDate;
+            
+            const repairCost = jobData['Repair Cost'] === 'Pending' 
+                ? 'To be determined' 
+                : jobData['Repair Cost'];
+            document.getElementById('displayCost').textContent = repairCost;
+            
+            document.getElementById('statusMessage').textContent = jobData['Status Update Message'] || 'No updates available.';
+            
+            // Update progress visualization
+            updateProgress(jobData['Status'] || '');
+        }
+
+        // Update the progress bar and steps
+        function updateProgress(status) {
+            let progressPercentage = 0;
+            const steps = document.querySelectorAll('.step');
+            
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('completed', 'active');
+            });
+            
+            // Set progress based on status
+            status = (status || '').toLowerCase();
+            
+            if (status.includes('received')) {
+                progressPercentage = 20;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            } 
+            else if (status.includes('diagnosed')) {
+                progressPercentage = 40;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+            } 
+            else if (status.includes('progress') || status.includes('repairing')) {
+                progressPercentage = 60;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('completed');
+                steps[3].classList.add('active');
+            } 
+            else if (status.includes('testing')) {
+                progressPercentage = 80;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('completed');
+                steps[3].classList.add('completed');
+                steps[4].classList.add('active');
+            } 
+            else if (status.includes('complete') || status.includes('ready')) {
+                progressPercentage = 100;
+                steps.forEach(step => step.classList.add('completed'));
+            } 
+            else {
+                // Default to first step
+                progressPercentage = 20;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            }
+            
+            // Animate progress bar
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = progressPercentage + '%';
+            }, 100);
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString || dateString.trim() === '') return '';
+            
+            try {
+                const date = new Date(dateString);
+                return isNaN(date.getTime()) ? dateString : date.toLocaleDateString();
+            } catch {
+                return dateString;
+            }
+        }
     </script>
 </body>
 </html>
