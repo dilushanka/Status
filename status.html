@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Repair Job Tracker</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <title>Mobile Repair Job Tracker</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -50,6 +49,7 @@
     .btn-primary {
       background-color: #4361ee;
       color: white;
+      margin-right: 10px;
     }
     .btn-row {
       display: flex;
@@ -70,6 +70,7 @@
       padding: 2rem;
       border-radius: 8px;
       text-align: center;
+      position: relative;
     }
     .close {
       position: absolute;
@@ -83,36 +84,45 @@
 <body>
   <h1>Mobile Repair Job Tracker</h1>
 
-<div class="form-card">
-  <form id="registerForm">
-    <div class="form-group">
-      <label for="newCustomerName">Customer Name</label>
-      <input type="text" id="newCustomerName" required />
-    </div>
-    <div class="form-group">
-      <label for="newDeviceModel">Device Model</label>
-      <input type="text" id="newDeviceModel" required />
-    </div>
-    <div class="form-group">
-      <label for="newFault">Fault Description</label>
-      <input type="text" id="newFault" required />
-    </div>
-    <div class="form-group">
-      <label for="newEstimatedCompletion">Estimated Completion</label>
-      <input type="date" id="newEstimatedCompletion" required />
-    </div>
-    <div class="form-group">
-      <label for="newRepairCost">Repair Cost</label>
-      <input type="text" id="newRepairCost" required />
-    </div>
+  <div class="form-card">
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="newCustomerName">Customer Name</label>
+        <input type="text" id="newCustomerName" required />
+      </div>
+      <div class="form-group">
+        <label for="newDeviceModel">Device Model</label>
+        <input type="text" id="newDeviceModel" required />
+      </div>
+      <div class="form-group">
+        <label for="newFault">Fault Description</label>
+        <input type="text" id="newFault" required />
+      </div>
+      <div class="form-group">
+        <label for="newEstimatedCompletion">Estimated Completion</label>
+        <input type="date" id="newEstimatedCompletion" required />
+      </div>
+      <div class="form-group">
+        <label for="newRepairCost">Repair Cost</label>
+        <input type="text" id="newRepairCost" required />
+      </div>
 
-    <button type="submit" class="btn-primary">Add Repair Job</button>
-    <div class="btn-row">
-      <button type="button" id="saveToSheets" class="btn-primary">Save to Google Sheets</button>
-      <button type="button" id="loadFromSheets" class="btn-primary">Load from Google Sheets</button>
+      <button type="submit" class="btn-primary">Add Repair Job</button>
+      <div class="btn-row">
+        <button type="button" id="saveToSheets" class="btn-primary">Save to Google Sheets</button>
+        <button type="button" id="loadFromSheets" class="btn-primary">Load from Google Sheets</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Google Auth Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>This app needs permission to access your Google Sheets.</p>
+      <button id="authButton" class="btn-primary">Authenticate with Google</button>
     </div>
-  </form>
-</div>
+  </div>
 
 
   <!-- Google API Loader -->
