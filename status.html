@@ -15,46 +15,58 @@
     h1 {
       text-align: center;
       color: #4361ee;
+      margin-bottom: 1.5rem;
     }
     .form-card {
       background: white;
       max-width: 800px;
-      margin: 2rem auto;
+      margin: 0 auto;
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
     .form-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 600;
+      color: #444;
     }
-    input {
+    input, select {
       width: 100%;
-      padding: 10px 14px;
-      border: 1px solid #ccc;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4361ee;
     }
     button {
-      padding: 12px 20px;
+      padding: 12px 24px;
       border: none;
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
     }
     .btn-primary {
       background-color: #4361ee;
       color: white;
-      margin-right: 10px;
+    }
+    .btn-primary:hover {
+      background-color: #3a56d4;
     }
     .btn-row {
       display: flex;
-      gap: 10px;
-      margin-top: 1rem;
+      gap: 12px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
     #authModal {
       display: none;
@@ -68,9 +80,12 @@
     .modal-content {
       background: white;
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 12px;
       text-align: center;
       position: relative;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     }
     .close {
       position: absolute;
@@ -78,6 +93,40 @@
       right: 20px;
       font-size: 24px;
       cursor: pointer;
+      color: #777;
+    }
+    .close:hover {
+      color: #333;
+    }
+    .status-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .success {
+      background-color: #e6f7ee;
+      color: #28a745;
+      display: block;
+    }
+    .error {
+      background-color: #fde8e8;
+      color: #dc3545;
+      display: block;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .form-card {
+        padding: 1.5rem;
+      }
+      .btn-row {
+        flex-direction: column;
+      }
+      .btn-row button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -87,27 +136,28 @@
   <div class="form-card">
     <form id="registerForm">
       <div class="form-group">
-        <label for="newCustomerName">Customer Name</label>
-        <input type="text" id="newCustomerName" required />
+        <label for="newCustomerName">Customer Name *</label>
+        <input type="text" id="newCustomerName" required placeholder="Enter customer name" />
       </div>
       <div class="form-group">
-        <label for="newDeviceModel">Device Model</label>
-        <input type="text" id="newDeviceModel" required />
+        <label for="newDeviceModel">Device Model *</label>
+        <input type="text" id="newDeviceModel" required placeholder="Enter device model" />
       </div>
       <div class="form-group">
-        <label for="newFault">Fault Description</label>
-        <input type="text" id="newFault" required />
+        <label for="newFault">Fault Description *</label>
+        <input type="text" id="newFault" required placeholder="Describe the fault" />
       </div>
       <div class="form-group">
-        <label for="newEstimatedCompletion">Estimated Completion</label>
-        <input type="date" id="newEstimatedCompletion" required />
+        <label for="newEstimatedCompletion">Estimated Completion *</label>
+        <input type="date" id="newEstimatedCompletion" required value="" />
       </div>
       <div class="form-group">
-        <label for="newRepairCost">Repair Cost</label>
-        <input type="text" id="newRepairCost" required />
+        <label for="newRepairCost">Repair Cost *</label>
+        <input type="text" id="newRepairCost" required placeholder="Enter repair cost" value="" />
       </div>
 
       <button type="submit" class="btn-primary">Add Repair Job</button>
+      
       <div class="btn-row">
         <button type="button" id="saveToSheets" class="btn-primary">Save to Google Sheets</button>
         <button type="button" id="loadFromSheets" class="btn-primary">Load from Google Sheets</button>
@@ -115,18 +165,21 @@
     </form>
   </div>
 
+  <!-- Status Message -->
+  <div id="statusMessage" class="status-message"></div>
+
   <!-- Google Auth Modal -->
   <div id="authModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>This app needs permission to access your Google Sheets.</p>
-      <button id="authButton" class="btn-primary">Authenticate with Google</button>
+      <h3>Google Sheets Authorization</h3>
+      <p>This app needs permission to access your Google Sheets to save and load repair job data.</p>
+      <button id="authButton" class="btn-primary">Authorize with Google</button>
     </div>
   </div>
 
-
   <!-- Google API Loader -->
-  <script src="https://accounts.google.com/gsi/client"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="scriptst.js"></script>
 </body>
 </html>
