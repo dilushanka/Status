@@ -83,61 +83,37 @@
 <body>
   <h1>Mobile Repair Job Tracker</h1>
 
-  <div class="form-card">
-    <form id="registerForm">
-      <div class="form-group">
-        <label for="newJobNumber">Job Number</label>
-        <input type="text" id="newJobNumber" required/>
-      </div>
-      <div class="form-group">
-        <label for="newCustomerName">Customer Name</label>
-        <input type="text" id="newCustomerName" required/>
-      </div>
-      <div class="form-group">
-        <label for="newDeviceModel">Device Model</label>
-        <input type="text" id="newDeviceModel" required/>
-      </div>
-      <div class="form-group">
-        <label for="newFault">Fault Description</label>
-        <input type="text" id="newFault" required/>
-      </div>
-      <div class="form-group">
-        <label for="newDateReceived">Date Received</label>
-        <input type="date" id="newDateReceived" required/>
-      </div>
-      <div class="form-group">
-        <label for="newEstimatedCompletion">Estimated Completion</label>
-        <input type="date" id="newEstimatedCompletion" required/>
-      </div>
-      <div class="form-group">
-        <label for="newRepairCost">Repair Cost</label>
-        <input type="text" id="newRepairCost" required/>
-      </div>
-      <div class="form-group">
-        <label for="newStatus">Repair Status</label>
-        <input type="text" id="newStatus" required/>
-      </div>
-      <div class="form-group">
-        <label for="newStatusMessage">Status Update Message</label>
-        <input type="text" id="newStatusMessage" required/>
-      </div>
-
-      <button type="submit" class="btn-primary">Add Repair Job</button>
-      <div class="btn-row">
-        <button type="button" id="saveToSheets" class="btn-primary"><i class="fas fa-cloud-upload-alt"></i> Save to Google Sheets</button>
-        <button type="button" id="loadFromSheets" class="btn-primary"><i class="fas fa-cloud-download-alt"></i> Load from Google Sheets</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- Google Auth Modal -->
-  <div id="authModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>This app needs permission to access your Google Sheets.</p>
-      <button id="authButton" class="btn-primary">Authenticate with Google</button>
+<div class="form-card">
+  <form id="registerForm">
+    <div class="form-group">
+      <label for="newCustomerName">Customer Name</label>
+      <input type="text" id="newCustomerName" required />
     </div>
-  </div>
+    <div class="form-group">
+      <label for="newDeviceModel">Device Model</label>
+      <input type="text" id="newDeviceModel" required />
+    </div>
+    <div class="form-group">
+      <label for="newFault">Fault Description</label>
+      <input type="text" id="newFault" required />
+    </div>
+    <div class="form-group">
+      <label for="newEstimatedCompletion">Estimated Completion</label>
+      <input type="date" id="newEstimatedCompletion" required />
+    </div>
+    <div class="form-group">
+      <label for="newRepairCost">Repair Cost</label>
+      <input type="text" id="newRepairCost" required />
+    </div>
+
+    <button type="submit" class="btn-primary">Add Repair Job</button>
+    <div class="btn-row">
+      <button type="button" id="saveToSheets" class="btn-primary">Save to Google Sheets</button>
+      <button type="button" id="loadFromSheets" class="btn-primary">Load from Google Sheets</button>
+    </div>
+  </form>
+</div>
+
 
   <!-- Google API Loader -->
   <script src="https://accounts.google.com/gsi/client"></script>
