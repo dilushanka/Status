@@ -157,29 +157,63 @@ document.addEventListener('DOMContentLoaded', function () {
         client.requestAccessToken();
     }
 
-    function generateUniqueJobNumber() {
-        const timestamp = Date.now();
-        const randomPart = Math.floor(100 + Math.random() * 900);
-        return `JOB${timestamp}${randomPart}`;
+    async function generateUniqueJobNumber() {
+        const localJobs = JSON.parse(localStorage.getItem('repairJobs')) || [];
+
+        const localNumbers = new Set(
+            localJobs
+                .map(job => job['Job Number'])
+                .filter(jn => /^DR\d{6}$/.test(jn))
+                .map(jn => parseInt(jn.slice(2)))
+        );
+
+        let sheetNumbers = new Set();
+        try {
+            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.spreadsheetId}/values/${CONFIG.sheetName}!A2:A`, {
+                headers: { 'Authorization': `Bearer ${accessToken}` }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                sheetNumbers = new Set(
+                    (data.values || [])
+                        .map(row => row[0])
+                        .filter(jn => /^DR\d{6}$/.test(jn))
+                        .map(jn => parseInt(jn.slice(2)))
+                );
+            }
+        } catch (err) {
+            console.error('Error fetching sheet job numbers:', err);
+        }
+
+        const allUsed = new Set([...localNumbers, ...sheetNumbers]);
+
+        let nextNumber = 1;
+        while (allUsed.has(nextNumber) && nextNumber <= 999999) {
+            nextNumber++;
+        }
+
+        if (nextNumber > 999999) {
+            throw new Error('All job numbers are used up');
+        }
+
+        return `DR${String(nextNumber).padStart(6, '0')}`;
     }
 
-    function handleRegisterSubmit(e) {
+    async function handleRegisterSubmit(e) {
         e.preventDefault();
 
-        // Get form elements
         const customerNameEl = document.getElementById('newCustomerName');
         const deviceModelEl = document.getElementById('newDeviceModel');
         const faultDescEl = document.getElementById('newFault');
         const estCompletionEl = document.getElementById('newEstimatedCompletion');
         const repairCostEl = document.getElementById('newRepairCost');
 
-        // Validate elements exist
         if (!customerNameEl || !deviceModelEl || !faultDescEl || !estCompletionEl || !repairCostEl) {
             showToast('Form elements missing!');
             return;
         }
 
-        // Validate required fields
         if (!customerNameEl.value.trim() || !deviceModelEl.value.trim() || !faultDescEl.value.trim() || !estCompletionEl.value || !repairCostEl.value.trim()) {
             showToast('Please fill all required fields');
             return;
@@ -187,13 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let jobs = JSON.parse(localStorage.getItem('repairJobs')) || [];
 
-        // Generate unique job number
-        let newJobNumber;
-        do {
-            newJobNumber = generateUniqueJobNumber();
-        } while (jobs.some(job => job['Job Number'] === newJobNumber));
+        let newJobNumber = await generateUniqueJobNumber();
 
-        // Create new job object
         const job = {
             'Job Number': newJobNumber,
             'Customer Name': customerNameEl.value.trim(),
@@ -213,7 +242,6 @@ document.addEventListener('DOMContentLoaded', function () {
         registerForm.reset();
     }
 
-    // Event Listeners
     registerForm.addEventListener('submit', handleRegisterSubmit);
     saveToSheetsBtn.addEventListener('click', saveToGoogleSheets);
     loadFromSheetsBtn.addEventListener('click', loadFromGoogleSheets);
