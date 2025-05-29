@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const authModal = document.getElementById('authModal');
     const authButton = document.getElementById('authButton');
     const closeModal = document.querySelector('.close');
+    const statusBox = document.getElementById('statusMessage');
 
     const CONFIG = {
         clientId: '80785123608-hebadvt7k7pcjnthnvkbtodc9i328le0.apps.googleusercontent.com',
@@ -22,8 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let accessToken = null;
 
-    function showToast(msg) {
-        alert(msg);
+    function showToast(msg, type = 'success') {
+        statusBox.textContent = msg;
+        statusBox.className = 'status-message ' + type;
+        statusBox.style.display = 'block';
+        setTimeout(() => statusBox.style.display = 'none', 4000);
     }
 
     function generateValuesForSheets() {
@@ -41,34 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
             job['Status'],
             job['Status Update Message']
         ]);
-        values.unshift(['Job Number', 'Customer Name', 'Device Model', 'Fault Description', 'Date Received', 'Estimated Completion', 'Repair Cost', 'Status', 'Status Update Message']);
+
+        // No header row here to avoid duplication
         return values;
     }
 
-    async function saveToGoogleSheets() {
+    async function saveToGoogleSheets(clearAfter = true) {
         if (!accessToken) {
             authModal.style.display = 'block';
             return;
         }
 
         try {
-            // Clear existing data first
-            await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.spreadsheetId}/values/${CONFIG.sheetName}!A1:Z1000?valueInputOption=RAW`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    range: `${CONFIG.sheetName}!A1:Z1000`,
-                    majorDimension: 'ROWS',
-                    values: []
-                })
-            });
-
             const values = generateValuesForSheets();
             if (values.length === 0) {
-                showToast('No data to save');
+                showToast('No data to save', 'error');
                 return;
             }
 
@@ -87,9 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) throw new Error(await response.text());
             showToast('Saved to Google Sheets!');
+            if (clearAfter) {
+                localStorage.setItem('repairJobs', JSON.stringify([]));
+            }
         } catch (err) {
             console.error('Sheets API Error:', err);
-            showToast('Failed to save to Sheets');
+            showToast('Failed to save to Sheets', 'error');
         }
     }
 
@@ -110,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
             if (!data.values || data.values.length === 0) {
-                showToast('No data found in Sheets');
+                showToast('No data found in Sheets', 'error');
                 return;
             }
 
@@ -130,13 +124,13 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Loaded from Google Sheets!');
         } catch (err) {
             console.error('Sheets API Error:', err);
-            showToast('Failed to load from Sheets');
+            showToast('Failed to load from Sheets', 'error');
         }
     }
 
-    function handleAuthClick() {
+    function handleAuthClick(callback) {
         if (typeof google === 'undefined' || !google.accounts) {
-            showToast('Google API not loaded');
+            showToast('Google API not loaded', 'error');
             return;
         }
 
@@ -149,8 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     accessToken = tokenResponse.access_token;
                     authModal.style.display = 'none';
                     showToast('Authenticated');
+                    if (typeof callback === 'function') callback();
                 } else {
-                    showToast('Authentication failed');
+                    showToast('Authentication failed', 'error');
                 }
             }
         });
@@ -209,14 +204,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const estCompletionEl = document.getElementById('newEstimatedCompletion');
         const repairCostEl = document.getElementById('newRepairCost');
 
-        if (!customerNameEl || !deviceModelEl || !faultDescEl || !estCompletionEl || !repairCostEl) {
-            showToast('Form elements missing!');
+        if (!customerNameEl.value.trim() || !deviceModelEl.value.trim() || !faultDescEl.value.trim() || !estCompletionEl.value || !repairCostEl.value.trim()) {
+            showToast('Please fill all required fields', 'error');
             return;
         }
 
-        if (!customerNameEl.value.trim() || !deviceModelEl.value.trim() || !faultDescEl.value.trim() || !estCompletionEl.value || !repairCostEl.value.trim()) {
-            showToast('Please fill all required fields');
-            return;
+        if (!accessToken) {
+            return handleAuthClick(() => handleRegisterSubmit(e));
         }
 
         let jobs = JSON.parse(localStorage.getItem('repairJobs')) || [];
@@ -238,13 +232,13 @@ document.addEventListener('DOMContentLoaded', function () {
         jobs.push(job);
         localStorage.setItem('repairJobs', JSON.stringify(jobs));
 
-        showToast(`Repair job added. Job Number: ${newJobNumber}`);
+        await saveToGoogleSheets(true);
         registerForm.reset();
     }
 
     registerForm.addEventListener('submit', handleRegisterSubmit);
-    saveToSheetsBtn.addEventListener('click', saveToGoogleSheets);
+    saveToSheetsBtn.addEventListener('click', () => saveToGoogleSheets(true));
     loadFromSheetsBtn.addEventListener('click', loadFromGoogleSheets);
-    authButton.addEventListener('click', handleAuthClick);
+    authButton.addEventListener('click', () => handleAuthClick());
     closeModal.addEventListener('click', () => authModal.style.display = 'none');
 });
